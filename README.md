@@ -21,17 +21,18 @@ Scanner audio can be a bit on teh harsh side as far as quality, but the system d
     ```sh
     cd Scanner-Monitor
     ```
-3. Install the required dependencies:
+
+4. Install the required Python packages:
     ```sh
-    npm install
+    pip install -r requirements.txt
     ```
 
 ## Usage
 1. Start the application:
     ```sh
-    npm start
+    python listen.py
     ```
-2. Follow the on-screen instructions to monitor, record, and transcribe scanner audio.
+2. Follow the on-screen instructions.
 
 ## Contributing
 There is a long list of possibilities for this project. Since the project is just a proof of concept, there is limited support but all feedback and help is welcome. A PR can be submitted with all bug fixes, additional features, and optimizations. 

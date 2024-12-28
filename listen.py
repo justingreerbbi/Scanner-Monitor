@@ -8,17 +8,25 @@ import wave
 import os
 from datetime import datetime
 
+# @todo add arguments for the URL, threshold, and output directory
+
 # Constants
-CHUNK = 1024 # Audio chunk size
+CHUNK = 1024 * 8  # Audio chunk size
 RECORD_SECONDS = 5
 THRESHOLD = 1  # Audio level threshold; adjust as needed
 OUTPUT_DIRECTORY = "./recordings"
-URL = "https://broadcastify.cdnstream1.com/13705"
 
 # Create output directory if it doesn't exist
 if not os.path.exists(OUTPUT_DIRECTORY):
     os.makedirs(OUTPUT_DIRECTORY)
 
+# Ask the user for the URL
+URL = input("Enter the URL of the audio stream: ")
+
+# Ensure the URL is valid, if not, bail.
+if not URL:
+    print("No URL provided. Exiting.")
+    exit()
 
 print('')
 print("* Start monitoring audio")
@@ -84,6 +92,9 @@ try:
                     
                     # Save audio to a .wav file
                     combined.export(RECORDED_OUTPUT_FILENAME, format="wav")
+
+                    # Play the recorded audio
+                    play(combined)
                     
                     # Attempt to convert audio to text
                     recognizer = Recognizer()
