@@ -2,13 +2,26 @@ import numpy as np
 import requests
 from pydub import AudioSegment
 from pydub.playback import play
+from pydub.generators import Sine
 from speech_recognition import Recognizer, AudioFile
 import io
 import wave
 import os
 from datetime import datetime
+import sys
+#import webbrowser
 
-# @todo add arguments for the URL, threshold, and output directory
+## Define the keywords variable as an empty list
+KEYWORDS = []
+
+# load the config.txt file and parse the allowed values
+with open('./config.txt') as f:
+     lines = f.readlines()
+     for line in lines:
+         if line.startswith('KEYWORDS'):
+            KEYWORDS = line.split('=')[1].strip()
+            KEYWORDS = KEYWORDS.split(' ')
+            print(f"Alert on Keywords: {KEYWORDS}")
 
 # Constants
 CHUNK = 1024 * 8  # Audio chunk size
@@ -75,11 +88,11 @@ try:
                 
                 #print(f"RMS: {rms}")
                 if rms > THRESHOLD and not recording:
-                    print("Recording started...")
+                    #print("Recording started...")
                     recording = True
                     frames = [segment]
                 elif rms <= THRESHOLD and recording:
-                    print("Recording stopped.")
+                    #print("Recording stopped.")
                     recording = False
 
                     # Create a directory for today's date if it doesn't exist
@@ -114,6 +127,16 @@ try:
                         try:
                             text = recognizer.recognize_google(audio)
                             print(f"Recognized text: {text}")
+
+                            # Search the text for any specific keywords
+                            for keyword in KEYWORDS:
+                                if keyword in text:
+                                    print(f"Keyword '{keyword}' found in text: {text}. Trigger Event!")
+                                    
+                                    # Open a new window with text containing the keyword found
+                                    #webbrowser.open_new_tab(f"data:text/plain,{text}")
+                                    tone = Sine(1000.0).to_audio_segment(duration=2000)  # 1000 Hz is the frequency of the alarm tone
+                                    play(tone)
                             
                             # Save the text to a file
                             with open(f"{HOUR_DIRECTORY}/recording_text_{RECORDED_DATE_TIME}.txt", "w") as text_file:

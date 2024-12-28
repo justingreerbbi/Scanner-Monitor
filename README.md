@@ -3,7 +3,9 @@
 ## Description
 Scanner Monitor, Recorder, and Transcriber is a python tool designed to monitor, record, and transcribe scanner audio. The script can monitor a scan feed from Broadcastify or any other provider (even a local server). On detection of audio output, the script will start recording the audio which is then stored and transcribed using Google Speech to Text.
 
-Scanner audio can be a bit on teh harsh side as far as quality, but the system does its best to transcribe the contents. Keywords can be used to trigger and event like a tone, email, or a popup alert to notify you when something specific is found.
+Scanner audio can be a bit on the harsh side as far as quality, but the system does its best to transcribe the contents. Keywords can be used to trigger and event like a tone, email, or a popup alert to notify you when something specific is found.
+
+**THIS SCRIPT IS SOLELY FOR DEVELOPMENT RIGHT NOW AND IS A WORK IN PROGRESS. TRY IT, FORK IT, PR UPDATES, ENJOY!**
 
 ## Features
 - Monitor scanner feed from Online source
@@ -15,7 +17,7 @@ Scanner audio can be a bit on teh harsh side as far as quality, but the system d
 ## Installation
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/Scanner-Monitor.git
+    git clone https://github.com/justingreerbbi/Scanner-Monitor.git
     ```
 2. Navigate to the project directory:
     ```sh
@@ -26,13 +28,21 @@ Scanner audio can be a bit on teh harsh side as far as quality, but the system d
     ```sh
     pip install -r requirements.txt
     ```
+OR download the code directly from the repo.
 
 ## Usage
 1. Start the application:
     ```sh
     python listen.py
     ```
-2. Follow the on-screen instructions.
+2. Follow the on-screen instructions. For demo purposes, use the stream url "https://broadcastify.cdnstream1.com/13705".
+
+## Config File
+The config file can be used to for easier management. 
+
+- Keywords: Keywords are separated by a space. Single keywords are only supported currently.
+
+I do plan on completing the config file fully. For now, only keywords are supported.
 
 ## Contributing
 There is a long list of possibilities for this project. Since the project is just a proof of concept, there is limited support but all feedback and help is welcome. A PR can be submitted with all bug fixes, additional features, and optimizations. 
@@ -41,7 +51,7 @@ There is a long list of possibilities for this project. Since the project is jus
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contact
-For any questions or suggestions, please open an issue or contact the repository owner.
+For any questions or suggestions, please open an issue.
 
 ## Todos
 - Add support for line-in audio.
@@ -50,4 +60,5 @@ For any questions or suggestions, please open an issue or contact the repository
 - Archive Structure of audio and text files respectively.
 - Cleanup function for older scripts.
 - Compression of archive files for storage.
+- Build wrapper for python script. 
 

@@ -1,0 +1,5 @@
+KEYWORDS=test keywords are separated by space
+CHUNK=1024*8
+RECORD_SECONDS=5
+OUTPUT_DIRECTORY=./recordings
+TRANSCRIBE_ENABLED=TRUE
