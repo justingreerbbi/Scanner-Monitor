@@ -20,7 +20,18 @@ OUTPUT_DIRECTORY = "./recordings"
 if not os.path.exists(OUTPUT_DIRECTORY):
     os.makedirs(OUTPUT_DIRECTORY)
 
+# ask the user to press 1 for stream or 2 for file and listen to the input
+# source = input("What type of source are you wanting to monitor? \n 1. Direct Source \n 2. Stream \n")
+
+#if source == "1":
+#    print("You have selected to monitor a direct source.")
+    # Ask the user for the file path
+#    FILE_PATH = input("Enter the file path of the audio file: ")
+#if source == "2":
+#    print("You have selected to monitor a stream.")
+
 # Ask the user for the URL
+# Testing URL: https://broadcastify.cdnstream1.com/13705
 URL = input("Enter the URL of the audio stream: ")
 
 # Ensure the URL is valid, if not, bail.
