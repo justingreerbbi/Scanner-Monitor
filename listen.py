@@ -11,6 +11,18 @@ from datetime import datetime
 import sys
 #import webbrowser
 
+print("")
+print("#######################################################")
+print("# Welcome to the Scanner Audio Monitor and Alert System.")
+print("# This system will monitor the audio stream for specific keywords.")
+print("# Author: Justin Greer justingreer750@gmail.com")
+print("# Version: 1.0")
+print("# Date: 2021-09-14")
+print("# License: MIT")
+print("#")
+print("# Enjoy! Please report any issues.")
+print("#######################################################")
+
 ## Define the keywords variable as an empty list
 KEYWORDS = []
 
@@ -22,6 +34,7 @@ if os.path.exists('./config.txt'):
             if line.startswith('KEYWORDS'):
                 KEYWORDS = line.split('=')[1].strip()
                 KEYWORDS = KEYWORDS.split(' ')
+                print("")
                 print(f"Alert on Keywords: {KEYWORDS}")
 
 # Constants
@@ -46,7 +59,9 @@ if not os.path.exists(OUTPUT_DIRECTORY):
 
 # Ask the user for the URL
 # Testing URL: https://broadcastify.cdnstream1.com/13705
+print("")
 URL = input("Enter the URL of the audio stream: ")
+print("")
 
 # Ensure the URL is valid, if not, bail.
 if not URL:
