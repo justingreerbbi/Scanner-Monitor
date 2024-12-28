@@ -6,13 +6,19 @@ from speech_recognition import Recognizer, AudioFile
 import io
 import wave
 import os
+from datetime import datetime
 
 # Constants
 CHUNK = 1024 # Audio chunk size
 RECORD_SECONDS = 5
 THRESHOLD = 1  # Audio level threshold; adjust as needed
-WAVE_OUTPUT_FILENAME = "./output.wav"
+OUTPUT_DIRECTORY = "./recordings"
 URL = "https://broadcastify.cdnstream1.com/13705"
+
+# Create output directory if it doesn't exist
+if not os.path.exists(OUTPUT_DIRECTORY):
+    os.makedirs(OUTPUT_DIRECTORY)
+
 
 print('')
 print("* Start monitoring audio")
@@ -56,24 +62,34 @@ try:
                 elif rms <= THRESHOLD and recording:
                     print("Recording stopped.")
                     recording = False
+
+                    # Configuration for the specific recording.
+                    RECORDED_DATE_TIME = datetime.now().strftime('%Y%m%d_%H%M%S')
+                    RECORDED_OUTPUT_FILENAME = f"{OUTPUT_DIRECTORY}/recording_{RECORDED_DATE_TIME}.wav"
                     
                     # Combine recorded frames
                     combined = sum(frames)
                     
                     # Save audio to a .wav file
-                    combined.export(WAVE_OUTPUT_FILENAME, format="wav")
+                    combined.export(RECORDED_OUTPUT_FILENAME, format="wav")
                     
-                    # Convert audio to text
+                    # Attempt to convert audio to text
                     recognizer = Recognizer()
-                    with AudioFile(WAVE_OUTPUT_FILENAME) as source:
+                    with AudioFile(RECORDED_OUTPUT_FILENAME) as source:
                         audio = recognizer.record(source)
                         try:
                             text = recognizer.recognize_google(audio)
                             print(f"Recognized text: {text}")
                             
                             # Save the text to a file
-                            with open("recognized_text.txt", "a") as text_file:
+                            with open(f"{OUTPUT_DIRECTORY}/recording_text_{RECORDED_DATE_TIME}.txt", "w") as text_file:
                                 text_file.write(text + "\n")
+
+                            # @todo Check the text for specific keywords. 
+                            # For example, if the text contains "fire" or "emergency", send a notification.
+                            # Might be best to use a a separate config file for this. 
+                            # Due to the nature in which the keywords need to be managed, this makes sense.
+
                         except Exception as e:
                             print(f"Could not recognize speech: {e}")
                     
@@ -91,6 +107,6 @@ finally:
     # Ensure the last recording is saved if interrupted while recording
     if frames:
         combined = sum(frames)
-        combined.export(WAVE_OUTPUT_FILENAME, format="wav")
+        combined.export(RECORDED_OUTPUT_FILENAME, format="wav")
 
 print("Finished monitoring and recording.")
