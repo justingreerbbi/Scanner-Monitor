@@ -15,6 +15,8 @@ Scanner audio can be a bit on the harsh side as far as quality, but the system d
 - Keyword Notifications
 
 ## Installation
+The script does depend on **FFMPEG** to be installed. Be sure this is installed.
+
 1. Clone the repository:
     ```sh
     git clone https://github.com/justingreerbbi/Scanner-Monitor.git

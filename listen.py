@@ -15,13 +15,14 @@ import sys
 KEYWORDS = []
 
 # load the config.txt file and parse the allowed values
-with open('./config.txt') as f:
-     lines = f.readlines()
-     for line in lines:
-         if line.startswith('KEYWORDS'):
-            KEYWORDS = line.split('=')[1].strip()
-            KEYWORDS = KEYWORDS.split(' ')
-            print(f"Alert on Keywords: {KEYWORDS}")
+if os.path.exists('./config.txt'):
+    with open('./config.txt') as f:
+        lines = f.readlines()
+        for line in lines:
+            if line.startswith('KEYWORDS'):
+                KEYWORDS = line.split('=')[1].strip()
+                KEYWORDS = KEYWORDS.split(' ')
+                print(f"Alert on Keywords: {KEYWORDS}")
 
 # Constants
 CHUNK = 1024 * 8  # Audio chunk size
