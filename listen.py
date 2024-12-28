@@ -63,9 +63,21 @@ try:
                     print("Recording stopped.")
                     recording = False
 
+                    # Create a directory for today's date if it doesn't exist
+                    today_date = datetime.now().strftime('%Y%m%d')
+                    TODAY_DIRECTORY = os.path.join(OUTPUT_DIRECTORY, today_date)
+                    if not os.path.exists(TODAY_DIRECTORY):
+                        os.makedirs(TODAY_DIRECTORY)
+                    
+                    # Create a directory for the current hour if it doesn't exist
+                    current_hour = datetime.now().strftime('%H')
+                    HOUR_DIRECTORY = os.path.join(TODAY_DIRECTORY, current_hour)
+                    if not os.path.exists(HOUR_DIRECTORY):
+                        os.makedirs(HOUR_DIRECTORY)
+
                     # Configuration for the specific recording.
                     RECORDED_DATE_TIME = datetime.now().strftime('%Y%m%d_%H%M%S')
-                    RECORDED_OUTPUT_FILENAME = f"{OUTPUT_DIRECTORY}/recording_{RECORDED_DATE_TIME}.wav"
+                    RECORDED_OUTPUT_FILENAME = f"{HOUR_DIRECTORY}/recording_{RECORDED_DATE_TIME}.wav"
                     
                     # Combine recorded frames
                     combined = sum(frames)
@@ -82,7 +94,7 @@ try:
                             print(f"Recognized text: {text}")
                             
                             # Save the text to a file
-                            with open(f"{OUTPUT_DIRECTORY}/recording_text_{RECORDED_DATE_TIME}.txt", "w") as text_file:
+                            with open(f"{HOUR_DIRECTORY}/recording_text_{RECORDED_DATE_TIME}.txt", "w") as text_file:
                                 text_file.write(text + "\n")
 
                             # @todo Check the text for specific keywords. 
