@@ -26,10 +26,19 @@ warnings.filterwarnings("ignore")
 # tiny, base, small, medium, large, turbo
 transcribe_model = whisper.load_model('base')
 
-## Define the keywords variable as an empty list
-KEYWORDS = []
+## Configuration. Do not modify directly here. Use the config.txt file.
+CHUNK=1024*8
+RECORD_SECONDS=2
+OUTPUT_DIRECTORY='./recordings'
+TRANSCRIBE_ENABLED=True
+WHISPER_MODEL='base'
+ONLY_CONSOLE_LOG_TRIGGER=True
+PLAY_TONE_ON_ALERT=True
+DEBUG=False
+THRESHOLD=1
+PLAY_AUDIO=True
 
-# load the config.txt file and parse the allowed values
+## load the config.txt file and parse the allowed values
 if os.path.exists('./config.txt'):
     with open('./config.txt') as f:
         lines = f.readlines()
@@ -37,14 +46,24 @@ if os.path.exists('./config.txt'):
             if line.startswith('KEYWORDS'):
                 KEYWORDS = line.split('=')[1].strip()
                 KEYWORDS = KEYWORDS.split(' ')
-                print("")
-                print(f"Alert on Keywords: {KEYWORDS}")
-
-# Constants
-CHUNK = 1024 * 8  # Audio chunk size
-RECORD_SECONDS = 2
-THRESHOLD = 1  # Audio level threshold; adjust as needed
-OUTPUT_DIRECTORY = "./recordings"
+            if line.startswith('RECORD_SECONDS'):
+                RECORD_SECONDS = int(line.split('=')[1].strip())
+            if line.startswith('OUTPUT_DIRECTORY'):
+                OUTPUT_DIRECTORY = line.split('=')[1].strip()
+            if line.startswith('TRANSCRIBE_ENABLED'):
+                TRANSCRIBE_ENABLED = line.split('=')[1].strip().lower() == 'true'
+            if line.startswith('WHISPER_MODEL'):
+                WHISPER_MODEL = line.split('=')[1].strip()
+            if line.startswith('ONLY_CONSOLE_LOG_TRIGGER'):
+                ONLY_CONSOLE_LOG_TRIGGER = line.split('=')[1].strip().lower() == 'true'
+            if line.startswith('PLAY_TONE_ON_ALERT'):
+                PLAY_TONE_ON_ALERT = line.split('=')[1].strip().lower() == 'true'
+            if line.startswith('DEBUG'):
+                DEBUG = line.split('=')[1].strip().lower() == 'true'
+            if line.startswith('THRESHOLD'):
+                THRESHOLD = int(line.split('=')[1].strip())
+            if line.startswith('PLAY_AUDIO'):
+                PLAY_AUDIO = line.split('=')[1].strip().lower() == 'true'
 
 # Create output directory if it doesn't exist
 if not os.path.exists(OUTPUT_DIRECTORY):
@@ -71,6 +90,9 @@ try:
     with requests.get(URL, stream=True) as response:
         response.raise_for_status()
         audio_stream = io.BytesIO()
+
+        if DEBUG:
+            print(f"Audio Response: {audio_stream}")
         
         for chunk in response.iter_content(chunk_size=CHUNK):
             if chunk:  # filter out keep-alive new chunks
@@ -83,6 +105,7 @@ try:
                 
                 # Convert to numpy array for RMS calculation
                 samples = np.array(segment.get_array_of_samples())
+
                 # Convert samples to -1 to 1 range if not already
                 if segment.sample_width == 2:
                     samples = samples.astype(np.int16) / 32768.0  # Normalize for 16-bit audio
@@ -93,15 +116,21 @@ try:
                 rms = np.sqrt(np.mean(samples**2))
 
                 # Convert RMS to whole number
+                # RMS is the threshold for audio detection. 0 is silent and anything above is something.
                 rms = int(rms * 1000)
-                
-                #print(f"RMS: {rms}")
+
+                if DEBUG:
+                    print(f"RMS Audio Level: {rms}")
+
                 if rms > THRESHOLD and not recording:
-                    #print("Recording started...")
+                    if DEBUG:
+                        print("Recording started...")
                     recording = True
                     frames = [segment]
                 elif rms <= THRESHOLD and recording:
-                    #print("Recording stopped.")
+                    if DEBUG:
+                        print("Recording stopped.")
+
                     recording = False
 
                     # Create a directory for today's date if it doesn't exist
@@ -125,30 +154,45 @@ try:
                     
                     # Save audio to a .mp3 file
                     combined.export(RECORDED_OUTPUT_FILENAME, format="mp3")
+                    
+                    if DEBUG:
+                        print(f"Recording Saved: {RECORDED_OUTPUT_FILENAME}")
 
                     # Play the recorded audio
-                    play(combined)
+                    if PLAY_AUDIO:
+                        play(combined)
 
-                    try:
-                        text = transcribe_model.transcribe(RECORDED_OUTPUT_FILENAME)
-                        text = text["text"]
-                        print(f"Recognized text: {text}")
+                    # Transcribe the audio if enabled
+                    if TRANSCRIBE_ENABLED:
+                        if DEBUG:
+                            print(f"Transcribing audio: {RECORDED_OUTPUT_FILENAME}")
 
-                        for keyword in KEYWORDS:
-                            if keyword in text:
-                                print(f"Keyword '{keyword}' found in text: {text}. Trigger Event!")
-                                
-                                # Open a new window with text containing the keyword found
-                                #webbrowser.open_new_tab(f"data:text/plain,{text}")
-                                tone = Sine(1000.0).to_audio_segment(duration=2000)  # 1000 Hz is the frequency of the alarm tone
-                                play(tone)
+                        try:
+                            text = transcribe_model.transcribe(RECORDED_OUTPUT_FILENAME)
+                            text = text["text"]
 
-                        # Save the text to a file
-                        with open(f"{HOUR_DIRECTORY}/recording_text_{RECORDED_DATE_TIME}.txt", "w") as text_file:
-                            text_file.write(text + "\n")
+                            if not ONLY_CONSOLE_LOG_TRIGGER:
+                                print(f"Recognized text: {text}")
 
-                    except Exception as e:
-                        print(f"Could not recognize speech: {e}")
+                            for keyword in KEYWORDS:
+                                if keyword in text:
+                                    if ONLY_CONSOLE_LOG_TRIGGER:
+                                        print(f"Keyword '{keyword}' found in text: {text}. Trigger Event!")
+
+                                    if PLAY_TONE_ON_ALERT:
+                                        tone = Sine(1000.0).to_audio_segment(duration=2000)  # 1000 Hz is the frequency of the alarm tone
+                                        play(tone)
+
+                            # Save the text to a file
+                            with open(f"{HOUR_DIRECTORY}/recording_text_{RECORDED_DATE_TIME}.txt", "w") as text_file:
+                                text_file.write(text + "\n")
+
+                        except Exception as e:
+                            print(f"Could not recognize speech: {e}")
+                    
+                    else:
+                        if DEBUG:
+                            print(f"Skipping Transcribe Task")
                    
                     # Clear frames for the next recording
                     frames = []
