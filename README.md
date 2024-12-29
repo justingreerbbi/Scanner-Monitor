@@ -8,11 +8,11 @@ This application is designed to monitor and record audio from various sources, i
 
 ## Features
 
--   Monitor scanner feed from Online source
--   Monitor scanner feed from line-in
--   Record audio for later playback
--   Transcribe audio to text (Google or OpenAI Whisper)
--   Keyword Notifications
+- Monitor scanner feed from Online source <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
+-   Monitor scanner feed from line-in ( still in development )
+-   Record audio for later playback <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
+-   Transcribe audio to text using OpenAI Whisper <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
+-   Keyword Notifications <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
 
 ## Requirements
 
@@ -98,3 +98,6 @@ For any questions or suggestions, please open an issue.
 - [ ] Cleanup function for older content.
 - [ ] Compression of archive files for storage.
 - [ ] Build wrapper for python script.
+
+#### Attribution
+- gmaxwell, Public domain, via Wikimedia Commons
