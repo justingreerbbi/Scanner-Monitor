@@ -15,7 +15,7 @@ Scanner audio can be a bit on the harsh side as far as quality, but the system d
 - Keyword Notifications
 
 ## Requirements
-For running Python versions, it is best top setup a virtual interpreter so you don't muddy your core Python libraries up.
+It is best to setup a virtual environment so you don't muddy your core Python libraries up.
 
 - Recommended Python Version: **3.11.9**
 
@@ -62,6 +62,7 @@ OR download the code directly from the repo.
 
 ### Using OpenAI Whisper Translate Option
 Using OpenAI Whisper does not require an internet connection, is more accurate, but does take more time to process.
+
 **Note**: Currently, only Python 3.11.9 is supported.
 
 1. Run Only Once... Requirements 
