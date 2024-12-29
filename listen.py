@@ -1,27 +1,27 @@
+import whisper
 import numpy as np
 import requests
 from pydub import AudioSegment
 from pydub.playback import play
 from pydub.generators import Sine
-from speech_recognition import Recognizer, AudioFile
 import io
-import wave
 import os
 from datetime import datetime
-import sys
-#import webbrowser
 
 print("")
 print("#######################################################")
-print("# Welcome to the Scanner Audio Monitor and Alert System.")
-print("# This system will monitor the audio stream for specific keywords.")
+print("# Scanner, Recorder, and Transcribed By OpenAI Whisper")
 print("# Author: Justin Greer justingreer750@gmail.com")
 print("# Version: 1.0")
-print("# Date: 2021-09-14")
 print("# License: MIT")
 print("#")
 print("# Enjoy! Please report any issues.")
 print("#######################################################")
+
+
+# Load the Whisper Model
+# tiny, base, small, medium, large, turbo
+transcribe_model = whisper.load_model('base')
 
 ## Define the keywords variable as an empty list
 KEYWORDS = []
@@ -39,23 +39,13 @@ if os.path.exists('./config.txt'):
 
 # Constants
 CHUNK = 1024 * 8  # Audio chunk size
-RECORD_SECONDS = 5
+RECORD_SECONDS = 2
 THRESHOLD = 1  # Audio level threshold; adjust as needed
 OUTPUT_DIRECTORY = "./recordings"
 
 # Create output directory if it doesn't exist
 if not os.path.exists(OUTPUT_DIRECTORY):
     os.makedirs(OUTPUT_DIRECTORY)
-
-# ask the user to press 1 for stream or 2 for file and listen to the input
-# source = input("What type of source are you wanting to monitor? \n 1. Direct Source \n 2. Stream \n")
-
-#if source == "1":
-#    print("You have selected to monitor a direct source.")
-    # Ask the user for the file path
-#    FILE_PATH = input("Enter the file path of the audio file: ")
-#if source == "2":
-#    print("You have selected to monitor a stream.")
 
 # Ask the user for the URL
 # Testing URL: https://broadcastify.cdnstream1.com/13705
@@ -125,47 +115,38 @@ try:
 
                     # Configuration for the specific recording.
                     RECORDED_DATE_TIME = datetime.now().strftime('%Y%m%d_%H%M%S')
-                    RECORDED_OUTPUT_FILENAME = f"{HOUR_DIRECTORY}/recording_{RECORDED_DATE_TIME}.wav"
+                    RECORDED_OUTPUT_FILENAME = f"{HOUR_DIRECTORY}/recording_{RECORDED_DATE_TIME}.mp3"
                     
                     # Combine recorded frames
                     combined = sum(frames)
                     
-                    # Save audio to a .wav file
-                    combined.export(RECORDED_OUTPUT_FILENAME, format="wav")
+                    # Save audio to a .mp3 file
+                    combined.export(RECORDED_OUTPUT_FILENAME, format="mp3")
 
                     # Play the recorded audio
                     play(combined)
-                    
-                    # Attempt to convert audio to text
-                    recognizer = Recognizer()
-                    with AudioFile(RECORDED_OUTPUT_FILENAME) as source:
-                        audio = recognizer.record(source)
-                        try:
-                            text = recognizer.recognize_google(audio)
-                            print(f"Recognized text: {text}")
 
-                            # Search the text for any specific keywords
-                            for keyword in KEYWORDS:
-                                if keyword in text:
-                                    print(f"Keyword '{keyword}' found in text: {text}. Trigger Event!")
-                                    
-                                    # Open a new window with text containing the keyword found
-                                    #webbrowser.open_new_tab(f"data:text/plain,{text}")
-                                    tone = Sine(1000.0).to_audio_segment(duration=2000)  # 1000 Hz is the frequency of the alarm tone
-                                    play(tone)
-                            
-                            # Save the text to a file
-                            with open(f"{HOUR_DIRECTORY}/recording_text_{RECORDED_DATE_TIME}.txt", "w") as text_file:
-                                text_file.write(text + "\n")
+                    try:
+                        text = transcribe_model.transcribe(RECORDED_OUTPUT_FILENAME)
+                        text = text["text"]
+                        print(f"Recognized text: {text}")
 
-                            # @todo Check the text for specific keywords. 
-                            # For example, if the text contains "fire" or "emergency", send a notification.
-                            # Might be best to use a a separate config file for this. 
-                            # Due to the nature in which the keywords need to be managed, this makes sense.
+                        for keyword in KEYWORDS:
+                            if keyword in text:
+                                print(f"Keyword '{keyword}' found in text: {text}. Trigger Event!")
+                                
+                                # Open a new window with text containing the keyword found
+                                #webbrowser.open_new_tab(f"data:text/plain,{text}")
+                                tone = Sine(1000.0).to_audio_segment(duration=2000)  # 1000 Hz is the frequency of the alarm tone
+                                play(tone)
 
-                        except Exception as e:
-                            print(f"Could not recognize speech: {e}")
-                    
+                        # Save the text to a file
+                        with open(f"{HOUR_DIRECTORY}/recording_text_{RECORDED_DATE_TIME}.txt", "w") as text_file:
+                            text_file.write(text + "\n")
+
+                    except Exception as e:
+                        print(f"Could not recognize speech: {e}")
+                   
                     # Clear frames for the next recording
                     frames = []
                 elif recording:

@@ -1,10 +1,8 @@
-# Scanner Monitor, Recorder, and Transcriber
+# Audio Scanner, Recorder, and Transcribe with Keyword Alerts
 
 ## Description
 
-Scanner Monitor, Recorder, and Transcriber is a python tool designed to monitor, record, and transcribe scanner audio. The script can monitor a scan feed from Broadcastify or any other provider (even a local server). On detection of audio output, the script will start recording the audio which is then stored and transcribed using Google Speech to Text.
-
-Scanner audio can be a bit on the harsh side as far as quality, but the system does its best to transcribe the contents. Keywords can be used to trigger and event like a tone, email, or a popup alert to notify you when something specific is found.
+This application is designed to monitor and record audio from various sources, including live streams or direct line-in inputs. It leverages the power of OpenAI's Whisper model for like real-time transcription of the captured audio into text. Additionally, this project provides a feature to set custom keywords which, when detected in the transcribed text, trigger specific alerts to notify users.
 
 **THIS SCRIPT IS SOLELY FOR DEVELOPMENT RIGHT NOW AND IS A WORK IN PROGRESS. TRY IT, FORK IT, PR UPDATES, ENJOY!**
 
@@ -45,46 +43,19 @@ brew install ffmpeg
 
 ## Usage
 
-### Using Google Voice Translate Option
-
-**Note:** Google Translate requires internet connection in order to translate.
-
-1. Install the required Python packages:
-    ```
-    pip install -r requirements.txt
-    ```
-2. Start the application:
-    ```
-    python listen.py
-    ```
-3. Follow the on-screen instructions. For demo purposes, use the stream url "https://broadcastify.cdnstream1.com/13705".
-
-#### Supported Config Options
-
--   KEYWORDS
--   RECORD_SECONDS
--   OUTPUT_DIRECTORY
--   TRANSCRIBE_ENABLED
-
-### Using OpenAI Whisper Translate Option
-
-Using OpenAI Whisper does not require an internet connection, is more accurate, but does take more time to process.
-
-**Note**: Currently, only Python 3.11.9 is supported.
-
 1. Run Only Once... Requirements
 
     ```
-    pip install -r requirements_whisper.txt
+    pip install -r requirements.txt
     ```
 
 2. Start the application:
 
     ```
-    python listen-whisper.py
+    python listen.py
     ```
 
-    **Note**: On your first run with whisper, you will need internet connection. The application will download the model and automatically proceed to scanner, recording and transcribing.
+    **Note**: On your first run with whisper, you will need internet connection. The application will download the model and automatically proceed to scanning, recording and transcribing.
 
 3. Follow the on-screen instructions. For demo purposes, use the stream url "https://broadcastify.cdnstream1.com/13705".
 
