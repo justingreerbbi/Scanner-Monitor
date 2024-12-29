@@ -8,11 +8,11 @@ This application is designed to monitor and record audio from various sources, i
 
 ## Features
 
-- Monitor scanner feed from Online source <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
-- Monitor scanner feed from line-in ( still in development )
-- Record audio for later playback <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
-- Transcribe audio to text using OpenAI Whisper <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
-- Keyword Notifications <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
+-   Monitor scanner feed from Online source <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
+-   Monitor scanner feed from line-in ( still in development )
+-   Record audio for later playback <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
+-   Transcribe audio to text using OpenAI Whisper <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
+-   Keyword Notifications <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
 
 ## Requirements
 
@@ -61,18 +61,18 @@ brew install ffmpeg
 
 ### Supported Config Options
 
-| Option                  | Description                                      | Default Value          |
-|-------------------------|--------------------------------------------------|------------------------|
-| KEYWORDS                | Keywords are separated by space                  | test                   |
-| CHUNK                   | Size of audio chunks                             | 1024*8                 |
-| RECORD_SECONDS          | Duration after audio found                       | 2                      |
-| OUTPUT_DIRECTORY        | Directory to save recordings                     | ./recordings           |
-| TRANSCRIBE_ENABLED      | Enable or disable transcription                  | True                   |
-| WHISPER_MODEL           | Whisper model to use                             | base                   |
-| ONLY_CONSOLE_LOG_TRIGGER| Log alerts only to console                       | True                   |
-| PLAY_TONE_ON_ALERT      | Play a tone when a keyword is detected           | True                   |
-| DEBUG                   | Enable or disable debug mode                     | False                  |
-| PLAY_AUDIO              | Play the audio while recording                   | True                   |
+| Option                   | Description                            | Default Value |
+| ------------------------ | -------------------------------------- | ------------- |
+| KEYWORDS                 | Keywords are separated by space        | test          |
+| CHUNK                    | Size of audio chunks                   | 1024\*8       |
+| RECORD_SECONDS           | Duration after audio found             | 2             |
+| OUTPUT_DIRECTORY         | Directory to save recordings           | ./recordings  |
+| TRANSCRIBE_ENABLED       | Enable or disable transcription        | True          |
+| WHISPER_MODEL            | Whisper model to use                   | base          |
+| ONLY_CONSOLE_LOG_TRIGGER | Log alerts only to console             | True          |
+| PLAY_TONE_ON_ALERT       | Play a tone when a keyword is detected | True          |
+| DEBUG                    | Enable or disable debug mode           | False         |
+| PLAY_AUDIO               | Play the audio while recording         | True          |
 
 ## Config File
 
@@ -81,6 +81,10 @@ The config file can be used to for easier management.
 -   Keywords: Keywords are separated by a space. Single keywords are only supported currently.
 
 I do plan on completing the config file fully. For now, only keywords are supported.
+
+## Limitations
+
+-   While recording transcribing, the application does not listen to the audio stream. Using a large model for transcribing, will lead to longer gaps in recording.
 
 ## Contributing
 
@@ -96,12 +100,13 @@ For any questions or suggestions, please open an issue.
 
 ## Todos
 
-- [ ] Add support for line-in audio.
-- [ ] Add better options for ease of use.
-- [x] Archive Structure of audio and text files respectively.
-- [ ] Cleanup function for older content.
-- [ ] Compression of archive files for storage.
-- [ ] Build wrapper for python script.
+-   [ ] Add support for line-in audio.
+-   [ ] Add better options for ease of use.
+-   [x] Archive Structure of audio and text files respectively.
+-   [ ] Cleanup function for older content.
+-   [ ] Compression of archive files for storage.
+-   [ ] Build wrapper for python script.
 
 #### Attribution
-- gmaxwell, Public domain, via Wikimedia Commons
+
+-   gmaxwell, Public domain, via Wikimedia Commons
