@@ -59,7 +59,7 @@ brew install ffmpeg
 
 3. Follow the on-screen instructions. For demo purposes, use the stream url "https://broadcastify.cdnstream1.com/13705".
 
-#### Supported Config Options
+### Supported Config Options
 
 | Option                | Description                                      | Default Value          |
 |-----------------------|--------------------------------------------------|------------------------|
