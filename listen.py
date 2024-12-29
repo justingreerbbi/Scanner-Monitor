@@ -7,6 +7,7 @@ from pydub.generators import Sine
 import io
 import os
 from datetime import datetime
+import warnings
 
 print("")
 print("#######################################################")
@@ -18,6 +19,8 @@ print("#")
 print("# Enjoy! Please report any issues.")
 print("#######################################################")
 
+# Warning suppression since there is a lot going on.
+warnings.filterwarnings("ignore")
 
 # Load the Whisper Model
 # tiny, base, small, medium, large, turbo
