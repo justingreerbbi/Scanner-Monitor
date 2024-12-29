@@ -9,10 +9,10 @@ This application is designed to monitor and record audio from various sources, i
 ## Features
 
 - Monitor scanner feed from Online source <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
--   Monitor scanner feed from line-in ( still in development )
--   Record audio for later playback <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
--   Transcribe audio to text using OpenAI Whisper <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
--   Keyword Notifications <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
+- Monitor scanner feed from line-in ( still in development )
+- Record audio for later playback <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
+- Transcribe audio to text using OpenAI Whisper <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
+- Keyword Notifications <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Green_check.svg" width="15">
 
 ## Requirements
 
@@ -27,7 +27,7 @@ Install ffmpeg using choco or brew.
 brew install ffmpeg
 ```
 
-**Note:** Newer version than python version 3.11 is not supported by OpenAI Whisper
+**Note:** Python version 3.11 or newer is not supported by OpenAI Whisper, thus not support by this application if you choose to use transcribing.
 
 ## Installation
 
@@ -55,7 +55,7 @@ brew install ffmpeg
     python listen.py
     ```
 
-    **Note**: On your first run with whisper, you will need internet connection. The application will download the model and automatically proceed to scanning, recording and transcribing.
+    **Note**: On your first run with OpenAI Whisper, you will need internet connection. The application will download the model and automatically proceed to scanning, recording and transcribing.
 
 3. Follow the on-screen instructions. For demo purposes, use the stream url "https://broadcastify.cdnstream1.com/13705".
 
