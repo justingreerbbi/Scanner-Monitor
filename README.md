@@ -84,7 +84,7 @@ I do plan on completing the config file fully. For now, only keywords are suppor
 
 ## Limitations
 
--   While recording transcribing, the application does not listen to the audio stream. Using a large model for transcribing, will lead to longer gaps in recording.
+-   While transcribing, the application does not listen to the audio stream. Using a large model for transcribing, will lead to longer gaps in recording.
 
 ## Contributing
 
