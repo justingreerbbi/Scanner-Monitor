@@ -92,11 +92,11 @@ For any questions or suggestions, please open an issue.
 
 ## Todos
 
--   Add support for line-in audio.
--   Add better options for ease of use.
--   Ability to pipe in audio with other Speech to Text API's.
--   Archive Structure of audio and text files respectively.
--   Cleanup function for older scripts.
--   Compression of archive files for storage.
--   Build wrapper for python script.
--   Add config options into both google and whisper applications.
+- [ ] Add support for line-in audio.
+- [ ] Add better options for ease of use.
+- [ ] Ability to pipe in audio with other Speech to Text API's.
+- [ ] Archive Structure of audio and text files respectively.
+- [ ] Cleanup function for older scripts.
+- [ ] Compression of archive files for storage.
+- [ ] Build wrapper for python script.
+- [ ] Add config options into both google and whisper applications.
