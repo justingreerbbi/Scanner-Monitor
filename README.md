@@ -94,9 +94,7 @@ For any questions or suggestions, please open an issue.
 
 - [ ] Add support for line-in audio.
 - [ ] Add better options for ease of use.
-- [ ] Ability to pipe in audio with other Speech to Text API's.
 - [x] Archive Structure of audio and text files respectively.
-- [ ] Cleanup function for older scripts.
+- [ ] Cleanup function for older content.
 - [ ] Compression of archive files for storage.
 - [ ] Build wrapper for python script.
-- [ ] Add config options into both google and whisper applications.
