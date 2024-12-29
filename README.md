@@ -61,14 +61,18 @@ brew install ffmpeg
 
 ### Supported Config Options
 
-| Option                | Description                                      | Default Value          |
-|-----------------------|--------------------------------------------------|------------------------|
-| KEYWORDS              | List of keywords to trigger alerts               |                        |
-| RECORD_SECONDS        | Duration after end of audio to record in seconds | `2`                    |
-| OUTPUT_DIRECTORY      | Directory to save recorded audio and transcripts | `./output`             |
-| TRANSCRIBE_ENABLED    | Enable or disable transcription                  | `True`                 |
-| WHISPER_MODEL         | Whisper model to use for transcription           | `base`                 |
-| SHOW_RECOGNIZED_TEXT  | Display recognized text in the console           | `True`                 |
+| Option                  | Description                                      | Default Value          |
+|-------------------------|--------------------------------------------------|------------------------|
+| KEYWORDS                | Keywords are separated by space                  | test                   |
+| CHUNK                   | Size of audio chunks                             | 1024*8                 |
+| RECORD_SECONDS          | Duration after audio found                       | 2                      |
+| OUTPUT_DIRECTORY        | Directory to save recordings                     | ./recordings           |
+| TRANSCRIBE_ENABLED      | Enable or disable transcription                  | True                   |
+| WHISPER_MODEL           | Whisper model to use                             | base                   |
+| ONLY_CONSOLE_LOG_TRIGGER| Log alerts only to console                       | True                   |
+| PLAY_TONE_ON_ALERT      | Play a tone when a keyword is detected           | True                   |
+| DEBUG                   | Enable or disable debug mode                     | False                  |
+| PLAY_AUDIO              | Play the audio while recording                   | True                   |
 
 ## Config File
 
