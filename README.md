@@ -17,8 +17,9 @@ Scanner audio can be a bit on the harsh side as far as quality, but the system d
 ## Requirements
 For running Python versions, it is best top setup a virtual interpreter so you don't muddy your core Python libraries up.
 
-- Python 3.13.0 Works for the listener and Google translate.
-- Python 3.11.9 is required to to run the openai-whisper code and listener.
+- Recommended Python Version: **3.11.9**
+
+If you are not using transcribe features, the latest python version should work. If you are using OpenAI Whisper Transcribe, python version 3.11.9 is required due to the compatibility of Whisper and Python currently. 
 
 ## Installation
 The script does depend on **FFMPEG** to be installed. Be sure this is installed.
@@ -61,6 +62,7 @@ OR download the code directly from the repo.
 
 ### Using OpenAI Whisper Translate Option
 Using OpenAI Whisper does not require an internet connection, is more accurate, but does take more time to process.
+**Note**: Currently, only Python 3.11.9 is supported.
 
 1. Run Only Once... Requirements 
     ```sh
