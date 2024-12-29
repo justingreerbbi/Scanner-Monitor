@@ -14,6 +14,12 @@ Scanner audio can be a bit on the harsh side as far as quality, but the system d
 - Transcribe audio to text
 - Keyword Notifications
 
+## Requirements
+For running Python versions, it is best top setup a virtual interpreter so you don't muddy your core Python libraries up.
+
+- Python 3.13.0 Works for the listener and Google translate.
+- Python 3.11.9 is required to to run the openai-whisper code and listener.
+
 ## Installation
 The script does depend on **FFMPEG** to be installed. Be sure this is installed.
 
@@ -33,11 +39,29 @@ The script does depend on **FFMPEG** to be installed. Be sure this is installed.
 OR download the code directly from the repo.
 
 ## Usage
+
+### Using Google Voice Translate Option
+**Note:** Google Translate requires internet connection in order to translate.
+
 1. Start the application:
+
     ```sh
     python listen.py
     ```
 2. Follow the on-screen instructions. For demo purposes, use the stream url "https://broadcastify.cdnstream1.com/13705".
+
+### Using OpenAI Whisper Translate Option
+Using OpenAI Whisper does not require an internet connection, is more accurate, but does take more time to process.
+
+1. Start the application:
+
+    ```sh
+    python listen-whisper.py
+    ```
+2. Follow the on-screen instructions. For demo purposes, use the stream url "https://broadcastify.cdnstream1.com/13705".
+
+
+
 
 ## Config File
 The config file can be used to for easier management. 
