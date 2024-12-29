@@ -61,11 +61,14 @@ brew install ffmpeg
 
 #### Supported Config Options
 
--   KEYWORDS
--   RECORD_SECONDS
--   OUTPUT_DIRECTORY
--   TRANSCRIBE_ENABLED
--   WHISPER_MODEL
+| Option                | Description                                      | Default Value          |
+|-----------------------|--------------------------------------------------|------------------------|
+| KEYWORDS              | List of keywords to trigger alerts               |                        |
+| RECORD_SECONDS        | Duration after end of audio to record in seconds | `2`                    |
+| OUTPUT_DIRECTORY      | Directory to save recorded audio and transcripts | `./output`             |
+| TRANSCRIBE_ENABLED    | Enable or disable transcription                  | `True`                 |
+| WHISPER_MODEL         | Whisper model to use for transcription           | `base`                 |
+| SHOW_RECOGNIZED_TEXT  | Display recognized text in the console           | `True`                 |
 
 ## Config File
 
