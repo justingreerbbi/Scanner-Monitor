@@ -95,7 +95,7 @@ For any questions or suggestions, please open an issue.
 - [ ] Add support for line-in audio.
 - [ ] Add better options for ease of use.
 - [ ] Ability to pipe in audio with other Speech to Text API's.
-- [ ] Archive Structure of audio and text files respectively.
+- [x] Archive Structure of audio and text files respectively.
 - [ ] Cleanup function for older scripts.
 - [ ] Compression of archive files for storage.
 - [ ] Build wrapper for python script.
