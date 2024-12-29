@@ -11,7 +11,7 @@ Scanner audio can be a bit on the harsh side as far as quality, but the system d
 - Monitor scanner feed from Online source
 - Monitor scanner feed from line-in
 - Record audio for later playback
-- Transcribe audio to text
+- Transcribe audio to text (Google or OpenAI Whisper)
 - Keyword Notifications
 
 ## Requirements
@@ -43,25 +43,45 @@ OR download the code directly from the repo.
 ### Using Google Voice Translate Option
 **Note:** Google Translate requires internet connection in order to translate.
 
-1. Start the application:
-
+1. Install the required Python packages:
+    ```sh
+    pip install -r requirements.txt
+    ``` 
+2. Start the application:
     ```sh
     python listen.py
     ```
-2. Follow the on-screen instructions. For demo purposes, use the stream url "https://broadcastify.cdnstream1.com/13705".
+3. Follow the on-screen instructions. For demo purposes, use the stream url "https://broadcastify.cdnstream1.com/13705".
+
+#### Supported Config Options
+- KEYWORDS
+- RECORD_SECONDS
+- OUTPUT_DIRECTORY
+- TRANSCRIBE_ENABLED
 
 ### Using OpenAI Whisper Translate Option
 Using OpenAI Whisper does not require an internet connection, is more accurate, but does take more time to process.
 
-1. Start the application:
+1. Run Only Once... Requirements 
+    ```sh
+    pip install -r requirements_whisper.txt
+    ```
+
+2. Start the application:
 
     ```sh
     python listen-whisper.py
     ```
-2. Follow the on-screen instructions. For demo purposes, use the stream url "https://broadcastify.cdnstream1.com/13705".
+    **Note**: On your first run with whisper, you will need internet connection. The application will download the model and automatically proceed to scanner, recording and transcribing.
+    
+3. Follow the on-screen instructions. For demo purposes, use the stream url "https://broadcastify.cdnstream1.com/13705".
 
-
-
+#### Supported Config Options
+- KEYWORDS
+- RECORD_SECONDS
+- OUTPUT_DIRECTORY
+- TRANSCRIBE_ENABLED
+- WHISPER_MODEL
 
 ## Config File
 The config file can be used to for easier management. 
@@ -87,4 +107,4 @@ For any questions or suggestions, please open an issue.
 - Cleanup function for older scripts.
 - Compression of archive files for storage.
 - Build wrapper for python script. 
-
+- Add config options into both google and whisper applications.

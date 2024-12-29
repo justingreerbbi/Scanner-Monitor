@@ -10,15 +10,12 @@ import wave
 import os
 from datetime import datetime
 import sys
-#import webbrowser
 
 print("")
 print("#######################################################")
-print("# Welcome to the Scanner Audio Monitor and Alert System.")
-print("# This system will monitor the audio stream for specific keywords.")
+print("# Scanner, Recorder, and Transcribed By OpenAI Whisper")
 print("# Author: Justin Greer justingreer750@gmail.com")
 print("# Version: 1.0")
-print("# Date: 2021-09-14")
 print("# License: MIT")
 print("#")
 print("# Enjoy! Please report any issues.")
@@ -26,7 +23,8 @@ print("#######################################################")
 
 
 # Load the Whisper Model
-transcribe_model = whisper.load_model('turbo')
+# tiny, base, small, medium, large, turbo
+transcribe_model = whisper.load_model('base')
 
 ## Define the keywords variable as an empty list
 KEYWORDS = []
@@ -44,7 +42,7 @@ if os.path.exists('./config.txt'):
 
 # Constants
 CHUNK = 1024 * 8  # Audio chunk size
-RECORD_SECONDS = 5
+RECORD_SECONDS = 2
 THRESHOLD = 1  # Audio level threshold; adjust as needed
 OUTPUT_DIRECTORY = "./recordings"
 
@@ -52,23 +50,11 @@ OUTPUT_DIRECTORY = "./recordings"
 if not os.path.exists(OUTPUT_DIRECTORY):
     os.makedirs(OUTPUT_DIRECTORY)
 
-# ask the user to press 1 for stream or 2 for file and listen to the input
-# source = input("What type of source are you wanting to monitor? \n 1. Direct Source \n 2. Stream \n")
-
-#if source == "1":
-#    print("You have selected to monitor a direct source.")
-    # Ask the user for the file path
-#    FILE_PATH = input("Enter the file path of the audio file: ")
-#if source == "2":
-#    print("You have selected to monitor a stream.")
-
 # Ask the user for the URL
 # Testing URL: https://broadcastify.cdnstream1.com/13705
 print("")
 URL = input("Enter the URL of the audio stream: ")
 print("")
-
-URL = "https://broadcastify.cdnstream1.com/13705"
 
 # Ensure the URL is valid, if not, bail.
 if not URL:
