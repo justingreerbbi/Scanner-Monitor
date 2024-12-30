@@ -57,7 +57,7 @@ brew install ffmpeg
 
     **Note**: On your first run with OpenAI Whisper, you will need internet connection. The application will download the model and automatically proceed to scanning, recording and transcribing.
 
-3. Follow the on-screen instructions. For demo purposes, use the stream url "https://broadcastify.cdnstream1.com/13705".
+3. Follow the on-screen instructions. For demo purposes, use the stream url "https://broadcastify.cdnstream1.com/13705". The example uses a Broadcastify audio stream for public safety services but the logic applies to anything that has an audio stream 
 
 ### Supported Config Options
 
